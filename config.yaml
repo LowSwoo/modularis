@@ -1,0 +1,8 @@
+Server:
+  Host: localhost
+  Port: 8080
+Mongo:
+  Host: localhost
+  Port: 27017
+  DbName: database
+  CollectionName: users_test
