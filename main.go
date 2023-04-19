@@ -8,8 +8,8 @@ import (
 	"modularis/repository/ramPostRepo"
 	"modularis/server"
 	"modularis/service"
-	"modularis/service/basicAuthService"
 	"modularis/service/basicPostService"
+	"modularis/service/remoteAuthorization"
 )
 
 func main() {
@@ -32,6 +32,6 @@ func RepoConfig(cfg *config.Config) *repository.Repository {
 func ServiceConfig(cfg *config.Config) *service.Service {
 	repo := RepoConfig(cfg)
 	postService := basicPostService.NewService(repo)
-	authService := basicAuthService.NewService(repo)
+	authService := remoteAuthorization.NewService(remoteAuthorization.AuthServerConfig{Host: "localhost", Port: "8181"}, remoteAuthorization.AuthServerEndpointConfig{SignUp: "sign-up", SignIn: "sign-in"})
 	return service.NewService(authService, postService)
 }

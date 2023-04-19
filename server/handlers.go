@@ -13,7 +13,7 @@ func (s *Server) home(c *gin.Context) {
 func (s *Server) signUp(c *gin.Context) {
 	answer, err := s.svc.SignUp(models.NewUser(c.PostForm("login"), c.PostForm("password")))
 	if err != nil {
-		c.AbortWithStatus(http.StatusBadRequest)
+		c.JSON(http.StatusBadRequest, err.Error())
 	} else {
 		c.JSON(http.StatusOK, answer)
 	}
@@ -23,7 +23,7 @@ func (s *Server) signUp(c *gin.Context) {
 func (s *Server) signIn(c *gin.Context) {
 	answer, err := s.svc.SignIn(c.PostForm("login"), c.PostForm("password"))
 	if err != nil {
-		c.AbortWithStatus(http.StatusBadRequest)
+		c.JSON(http.StatusBadRequest, err.Error())
 	} else {
 		c.JSON(http.StatusOK, answer)
 	}
